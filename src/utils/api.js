@@ -1,7 +1,7 @@
+import he from 'he'
+
 export function fetchQuestions() {
-  const endpoint = encodeURI(
-    `https://opentdb.com/api.php?amount=10&difficulty=hard&type=boolean`
-  );
+  const endpoint = `https://opentdb.com/api.php?amount=10&difficulty=hard&type=boolean`
   return fetch(endpoint)
     .then(results => results.json())
     .then(data => {
@@ -10,13 +10,10 @@ export function fetchQuestions() {
       // Iterate over each question and remove encoded characters
       const results = [
         ...data.results.map(q => {
-          return { ...q, question: htmlDecode(q.question) }
+          // decode encoded questions using the library he
+          return { ...q, question: he.decode(q.question) }
         })
       ];
       return results
-    });
+    })
 }
-
-// Decode encoded characters for each question
-const htmlDecode = innerHTML =>
-  Object.assign(document.createElement("textarea"), { innerHTML }).value
