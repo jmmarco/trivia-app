@@ -7,6 +7,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: #282c34;
   min-height: 100vh;
+  box-sizing: border-box;
 }
 
 code {
@@ -27,15 +28,58 @@ code {
   border: 2px solid white;
 }
 
+.small-text {
+  font-size: xx-small;
+}
+
 .card {
+  margin: 2rem 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  width: 40%;
-  height: 80vh;
-  padding: 10px;
+  width: 30vw;
+  height: 100%;
+  padding: 2rem;
 }
+
+.card-header {
+  text-align: center;
+  height: 30vh;
+}
+
+.card-header > h2 {
+  margin: 0;
+}
+
+.card-main {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column ;
+  padding: 1rem;
+  height: 40vh;
+}
+
+.card-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap; 
+}
+
+.card-nav div {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 0.50rem;
+}
+
+.card-footer {
+  font-size: 2rem;
+  letter-spacing: 0.10rem;
+  margin: 2rem 0;
+}
+
 
 .center-flex {
   justify-content: center;
@@ -45,10 +89,47 @@ code {
   text-align: center  ;
 }
 
-
-.card-main {
-  padding: 10px;
+.correct {
+  color: lime;
 }
+
+.btn-nav {
+  all: unset;
+  margin: 0 10px;
+}
+
+.btn-answer {
+  width: 6vw;
+  height: 6vh;
+  cursor: pointer;
+  font-size: 1rem;
+  border: none;
+  background-color: white;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.10rem;
+  border-radius: 4px;
+  color: #282c34;
+  margin: 0 0.25rem;
+}
+
+
+.btn-answer:active {
+  background-color: #282c34;
+  border: 2px solid white;
+  color: white;
+}
+
+.btn-answer:focus {
+  outline: 0;
+}
+
+.disabled {
+  opacity: 0.10;
+} 
+
+
+
 
 .App-logo {
   height: 40vmin;
@@ -87,5 +168,34 @@ code {
     -webkit-transform: scale(1.0);
     transform: scale(1.0);
     opacity: 0;
+  }
+}
+
+
+@media (max-width: 550px) {
+  .card {
+    width: 95vw;
+    height: 100%;
+    padding: 0.75rem;
+  }
+  .card-main {
+    height: 50vh;
+    justify-content: space-around;
+    text-align: center;
+  }
+
+  .card-main > p {
+    margin: 0;
+  }
+
+  .btn-answer {
+    width: 24vw;
+  }
+
+  .card-nav {
+    justify-self: flex-end;
+    flex-direction: column;
+    align-items: inherit;
+    justify-content: space-between;
   }
 }
