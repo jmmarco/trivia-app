@@ -2,7 +2,7 @@ import React from "react";
 import Loading from "./Loading";
 import Error from "./Error";
 import { fetchQuestions } from "../utils/api";
-import { FiXCircle, FiCheckCircle, FiArrowLeftCircle, FiArrowRightCircle } from "react-icons/fi";
+import { FiXCircle, FiCheckCircle, FiArrowLeftCircle, FiArrowRightCircle , FiThumbsUp, FiThumbsDown} from "react-icons/fi";
 
 class Card extends React.Component {
   state = {
@@ -68,13 +68,12 @@ class Card extends React.Component {
           <>
             <header className="card-header">
               <h2>{questions && questions[index].category}</h2>
-              <p className="small-text">{JSON.stringify(result)}</p>
-              <p className="small-text">{JSON.stringify(index ,result)}</p>
-              <p>
-                {questions[index].result
-                  ? questions[index].result
-                  : null}
-              </p>
+              {/* <p className="small-text">{JSON.stringify(result)}</p>
+              <p className="small-text">{JSON.stringify(index ,result)}</p> */}
+      
+                {questions[index].result === 'correct' && <FiThumbsUp size={40} color="limegreen" />}
+                {questions[index].result === 'incorrect' && <FiThumbsDown size={40} color="crimson" />}
+
             </header>
             <main className="card-main border">
               {questions && <p className="text-center">{questions[index].question}</p>}
