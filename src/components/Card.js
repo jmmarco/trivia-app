@@ -33,25 +33,17 @@ class Card extends React.Component {
       });
   };
 
-  prev = () => {
-    const { index } = this.state;
-    index > 0 &&
-      this.setState(state => {
-        return { index: state.index - 1 };
-      });
-  };
-
   checkAnswer = answer => {
     const { index, questions } = this.state;
     let correctAnswer = questions[index].correct_answer === 'True';
-    console.log('The correct answer is: ', correctAnswer, typeof correctAnswer)
-    console.log('The players answer was: ', answer, typeof answer)
     questions[index]['result'] = correctAnswer === answer ? 'correct' : 'incorrect'
 
     this.setState({
       questions
     }, () => {
-      console.log(this.state.questions)
+      setTimeout(() =>{
+        this.next()
+      }, 2000)
     })
 
   };
@@ -68,8 +60,6 @@ class Card extends React.Component {
           <>
             <header className="card-header">
               <h2>{questions && questions[index].category}</h2>
-              {/* <p className="small-text">{JSON.stringify(result)}</p>
-              <p className="small-text">{JSON.stringify(index ,result)}</p> */}
       
                 {questions[index].result === 'correct' && <FiThumbsUp size={40} color="limegreen" />}
                 {questions[index].result === 'incorrect' && <FiThumbsDown size={40} color="crimson" />}
@@ -79,33 +69,21 @@ class Card extends React.Component {
               {questions && <p className="text-center">{questions[index].question}</p>}
 
               <nav className="card-nav">
-                <div>
-                  <button className={`btn-nav ${index === 0 && 'disabled'}`} onClick={this.prev} disabled={index === 0}>
-                    <FiArrowLeftCircle size={40}/>
-                  </button>
+
                   <button
-                    className={`btn-nav ${index === questions.length - 1 && 'disabled'}`} onClick={this.next}
-                    disabled={questions && index === questions.length - 1}
-                  >
-                    <FiArrowRightCircle size={40}/>
-                  </button>
-                </div>
-                <div>
-                  <button
-                    className={`btn btn-answer ${questions[index].result && 'disabled'}`}
+                    className={`btn-nav ${questions[index].result && 'disabled'}`}
                     disabled={questions[index].result}
                     onClick={() => this.checkAnswer(true)}
                   >
-                    true
+                    <FiCheckCircle size={60} />
                   </button>
                   <button
-                    className={`btn btn-answer ${questions[index].result && 'disabled'}`}
+                    className={`btn-nav ${questions[index].result && 'disabled'}`}
                     disabled={questions[index].result}
                     onClick={() => this.checkAnswer(false)}
                   >
-                    false
+                    <FiXCircle size={60} />
                   </button>
-                </div>
               </nav>
             </main>
             <footer className="card-footer">

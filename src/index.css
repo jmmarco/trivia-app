@@ -64,8 +64,7 @@ code {
 
 .card-nav {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: space-around;
   flex-wrap: wrap; 
 }
 
@@ -98,7 +97,14 @@ code {
 .btn-nav {
   all: unset;
   margin: 0 10px;
+  color: white;
+  cursor: pointer;
 }
+
+.btn-nav:active {
+  color: #afb0b3;
+}
+
 
 .btn-answer {
   width: 6vw;
