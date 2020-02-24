@@ -1,8 +1,9 @@
 import React from "react";
 import Loading from "./Loading";
 import Error from "./Error";
+import CardBody from "./CardBody";
+import Results from "./Results";
 import { fetchQuestions } from "../utils/api";
-import { FiXCircle, FiCheckCircle, FiArrowLeftCircle, FiArrowRightCircle , FiThumbsUp, FiThumbsDown} from "react-icons/fi";
 
 class Card extends React.Component {
   state = {
@@ -10,9 +11,10 @@ class Card extends React.Component {
     index: 0,
     loading: true,
     error: null,
+    completed: false
   };
 
-  componentDidMount() {
+  setQuestions = () => {
     fetchQuestions()
       .then(questions => {
         this.setState({
@@ -23,6 +25,25 @@ class Card extends React.Component {
       .catch(error => {
         this.setState({ loading: false, error: error.message });
       });
+  };
+
+  reset = () => {
+    this.setState(
+      {
+        questions: null,
+        index: 0,
+        loading: true,
+        error: null,
+        completed: false
+      },
+      () => {
+        this.setQuestions();
+      }
+    );
+  };
+
+  componentDidMount() {
+    this.setQuestions();
   }
 
   next = () => {
@@ -35,21 +56,51 @@ class Card extends React.Component {
 
   checkAnswer = answer => {
     const { index, questions } = this.state;
-    let correctAnswer = questions[index].correct_answer === 'True';
-    questions[index]['result'] = correctAnswer === answer ? 'correct' : 'incorrect'
+    let correctAnswer = questions[index].correct_answer === "True";
+    questions[index]["result"] =
+      correctAnswer === answer ? "correct" : "incorrect";
 
-    this.setState({
-      questions
-    }, () => {
-      setTimeout(() =>{
-        this.next()
-      }, 2000)
-    })
+    const isDone = index === questions.length - 1;
 
+    /* 
+      Call setTimeout right after initial setState to show 
+      current and last question outcome.
+    */
+    isDone
+      ? this.setState({
+        questions
+      }, () => {
+        setTimeout(() => {
+          this.setState({
+            completed: isDone
+          });
+        }, 500)
+      })
+      : this.setState(
+          {
+            questions
+          },
+          () => {
+            setTimeout(() => {
+              this.next();
+            }, 500);
+          }
+        );
   };
 
   render() {
-    const { index, questions, loading, error, result } = this.state;
+    const { index, questions, loading, error, completed } = this.state;
+
+    // Show game results
+    if (completed) {
+      return (
+        <div className="card border center-flex">
+          <Results questions={questions} handleReset={this.reset} />
+        </div>
+      );
+    }
+
+    // Loading, Error and Card content
     return (
       <div className={`card border ${loading || error ? `center-flex` : ""}`}>
         {loading ? (
@@ -57,39 +108,11 @@ class Card extends React.Component {
         ) : error ? (
           <Error message={error} />
         ) : (
-          <>
-            <header className="card-header">
-              <h2>{questions && questions[index].category}</h2>
-      
-                {questions[index].result === 'correct' && <FiThumbsUp size={40} color="limegreen" />}
-                {questions[index].result === 'incorrect' && <FiThumbsDown size={40} color="crimson" />}
-
-            </header>
-            <main className="card-main border">
-              {questions && <p className="text-center">{questions[index].question}</p>}
-
-              <nav className="card-nav">
-
-                  <button
-                    className={`btn-nav ${questions[index].result && 'disabled'}`}
-                    disabled={questions[index].result}
-                    onClick={() => this.checkAnswer(true)}
-                  >
-                    <FiCheckCircle size={60} />
-                  </button>
-                  <button
-                    className={`btn-nav ${questions[index].result && 'disabled'}`}
-                    disabled={questions[index].result}
-                    onClick={() => this.checkAnswer(false)}
-                  >
-                    <FiXCircle size={60} />
-                  </button>
-              </nav>
-            </main>
-            <footer className="card-footer">
-              {index + 1} of {questions && questions.length}
-            </footer>
-          </>
+          <CardBody
+            questions={questions}
+            index={index}
+            checkAnswer={this.checkAnswer}
+          />
         )}
       </div>
     );
