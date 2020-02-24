@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import {
   FiXCircle,
   FiCheckCircle,
@@ -48,4 +48,4 @@ function CardBody({ questions, index, checkAnswer }) {
   );
 }
 
-export default CardBody
+export default CardBody;
