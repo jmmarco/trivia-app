@@ -2,13 +2,14 @@ import React from "react";
 import Loading from "./Loading";
 import Error from "./Error";
 import { fetchQuestions } from "../utils/api";
+import { FiXCircle, FiCheckCircle, FiArrowLeftCircle, FiArrowRightCircle } from "react-icons/fi";
 
 class Card extends React.Component {
   state = {
     questions: null,
     index: 0,
     loading: true,
-    error: null
+    error: null,
   };
 
   componentDidMount() {
@@ -40,8 +41,23 @@ class Card extends React.Component {
       });
   };
 
+  checkAnswer = answer => {
+    const { index, questions } = this.state;
+    let correctAnswer = questions[index].correct_answer === 'True';
+    console.log('The correct answer is: ', correctAnswer, typeof correctAnswer)
+    console.log('The players answer was: ', answer, typeof answer)
+    questions[index]['result'] = correctAnswer === answer ? 'correct' : 'incorrect'
+
+    this.setState({
+      questions
+    }, () => {
+      console.log(this.state.questions)
+    })
+
+  };
+
   render() {
-    const { index, questions, loading, error } = this.state;
+    const { index, questions, loading, error, result } = this.state;
     return (
       <div className={`card border ${loading || error ? `center-flex` : ""}`}>
         {loading ? (
@@ -51,19 +67,47 @@ class Card extends React.Component {
         ) : (
           <>
             <header className="card-header">
-              <h2>{questions[index].category}</h2>
+              <h2>{questions && questions[index].category}</h2>
+              <p className="small-text">{JSON.stringify(result)}</p>
+              <p className="small-text">{JSON.stringify(index ,result)}</p>
+              <p>
+                {questions[index].result
+                  ? questions[index].result
+                  : null}
+              </p>
             </header>
             <main className="card-main border">
-              {questions && <p>{questions[index].question}</p>}
-              <button onClick={this.prev} disabled={index === 0}>
-                Prev
-              </button>
-              <button
-                onClick={this.next}
-                disabled={questions && index === questions.length - 1}
-              >
-                Next
-              </button>
+              {questions && <p className="text-center">{questions[index].question}</p>}
+
+              <nav className="card-nav">
+                <div>
+                  <button className={`btn-nav ${index === 0 && 'disabled'}`} onClick={this.prev} disabled={index === 0}>
+                    <FiArrowLeftCircle size={40}/>
+                  </button>
+                  <button
+                    className={`btn-nav ${index === questions.length - 1 && 'disabled'}`} onClick={this.next}
+                    disabled={questions && index === questions.length - 1}
+                  >
+                    <FiArrowRightCircle size={40}/>
+                  </button>
+                </div>
+                <div>
+                  <button
+                    className={`btn btn-answer ${questions[index].result && 'disabled'}`}
+                    disabled={questions[index].result}
+                    onClick={() => this.checkAnswer(true)}
+                  >
+                    true
+                  </button>
+                  <button
+                    className={`btn btn-answer ${questions[index].result && 'disabled'}`}
+                    disabled={questions[index].result}
+                    onClick={() => this.checkAnswer(false)}
+                  >
+                    false
+                  </button>
+                </div>
+              </nav>
             </main>
             <footer className="card-footer">
               {index + 1} of {questions && questions.length}
