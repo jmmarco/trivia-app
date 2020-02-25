@@ -4,7 +4,9 @@ import Error from "./Error";
 import CardBody from "./CardBody";
 import Results from "./Results";
 import Intro from "./Intro";
+import NoMatch from './NoMatch'
 import { fetchQuestions } from "../utils/api";
+import { BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import "./Card.css";
 
 class Card extends React.Component {
@@ -108,24 +110,30 @@ class Card extends React.Component {
 
     // Intro, Loading, Error and Card components
     return (
-      <>
-        {intro ? (
-          <Intro
-            handleClick={() => this.setState({ intro: false })}
-            questionsLength={questions && questions.length}
-          />
-        ) : loading ? (
-          <Loading />
-        ) : error ? (
-          <Error message={error} />
-        ) : (
-          <CardBody
-            questions={questions}
-            index={index}
-            checkAnswer={this.checkAnswer}
-          />
-        )}
-      </>
+      <Router >
+        <Switch>
+          <Route path="/"  exact>
+          {intro ? (
+            <Intro
+              handleClick={() => this.setState({ intro: false })}
+              questionsLength={questions && questions.length}
+            />
+          ) : loading ? (
+            <Loading />
+          ) : error ? (
+            <Error message={error} />
+          ) : (
+            <CardBody
+              questions={questions}
+              index={index}
+              checkAnswer={this.checkAnswer}
+            />
+          )}
+        </Route>
+        <Route component={NoMatch} />
+        </Switch>
+
+      </Router> 
     );
   }
 }
