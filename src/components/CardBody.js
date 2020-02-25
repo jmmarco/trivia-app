@@ -19,7 +19,7 @@ function CardBody({ questions, index, checkAnswer }) {
           <FiThumbsDown size={40} color="crimson" />
         )}
       </header>
-      <main className="card-main border">
+      <main className="card-main">
         {questions && (
           <p className="text-center">{questions[index].question}</p>
         )}
