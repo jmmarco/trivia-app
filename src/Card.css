@@ -20,7 +20,7 @@ p {
 .card {
   display: grid;
   grid-template-columns: 1fr;
-  padding: 0.5rem;
+  padding: 1rem;
   width: 50vmin;
   height: 90vh;
 }
@@ -135,13 +135,13 @@ p {
   border: 2px solid white;
   font-weight: 600;
   font-size: 1.5rem;
-  padding: 1rem 2rem;
+  padding: 2rem;
   margin: 1rem;
   letter-spacing: 0.1rem;
   vertical-align: middle;
   background-color: #282c34;
   color: white;
-  line-height: 1;
+  line-height: 0;
   text-transform: uppercase;
   justify-self: center;
   cursor: pointer;
@@ -193,6 +193,8 @@ p {
 @media (max-width: 550px) {
   .card {
     width: 90vw;
+    height: 90vh;
+    margin: 0.5rem;
   }
 
   .card {
