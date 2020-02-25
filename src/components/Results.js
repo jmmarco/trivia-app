@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 function Results({ questions, handleReset }) {
   const score = questions.reduce((acc, q) => {
@@ -56,3 +57,8 @@ function Results({ questions, handleReset }) {
 }
 
 export default Results;
+
+Results.propTypes = {
+  handleReset: PropTypes.func.isRequired,
+  questions: PropTypes.array.isRequired,
+};
