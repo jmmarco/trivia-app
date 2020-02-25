@@ -3,15 +3,18 @@ import Loading from "./Loading";
 import Error from "./Error";
 import CardBody from "./CardBody";
 import Results from "./Results";
+import Intro from "./Intro";
 import { fetchQuestions } from "../utils/api";
+import '../Card.css'
 
 class Card extends React.Component {
   state = {
-    questions: null,
-    index: 0,
-    loading: true,
+    completed: false,
     error: null,
-    completed: false
+    index: 0,
+    intro: true,
+    questions: null,
+    loading: true
   };
 
   setQuestions = () => {
@@ -67,15 +70,18 @@ class Card extends React.Component {
       current and last question outcome.
     */
     isDone
-      ? this.setState({
-        questions
-      }, () => {
-        setTimeout(() => {
-          this.setState({
-            completed: isDone
-          });
-        }, 500)
-      })
+      ? this.setState(
+          {
+            questions
+          },
+          () => {
+            setTimeout(() => {
+              this.setState({
+                completed: isDone
+              });
+            }, 500);
+          }
+        )
       : this.setState(
           {
             questions
@@ -89,7 +95,7 @@ class Card extends React.Component {
   };
 
   render() {
-    const { index, questions, loading, error, completed } = this.state;
+    const { index, intro, questions, loading, error, completed } = this.state;
 
     // Show game results
     if (completed) {
@@ -100,10 +106,12 @@ class Card extends React.Component {
       );
     }
 
-    // Loading, Error and Card content
+    // Intro, Loading, Error and Card components
     return (
-      <div className={`card border ${loading || error ? `center-flex` : ""}`}>
-        {loading ? (
+      <div className="card border text-center center-flex">
+        {intro ? (
+          <Intro handleClick={() => this.setState({ intro: false })} questionsLength={questions && questions.length}/>
+        ) : loading ? (
           <Loading />
         ) : error ? (
           <Error message={error} />
