@@ -5,6 +5,8 @@ import {
   FiThumbsUp,
   FiThumbsDown
 } from "react-icons/fi";
+import PropTypes from 'prop-types';
+
 
 function CardBody({ questions, index, checkAnswer }) {
   return (
@@ -49,3 +51,9 @@ function CardBody({ questions, index, checkAnswer }) {
 }
 
 export default CardBody;
+
+CardBody.propTypes = {
+  index: PropTypes.number.isRequired,
+  questions: PropTypes.array.isRequired,
+  checkAnswer: PropTypes.func.isRequired
+};
