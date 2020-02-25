@@ -100,7 +100,7 @@ class Card extends React.Component {
     // Show game results
     if (completed) {
       return (
-        <div className="card border center-flex">
+        <div className="card results-rows border center-flex text-center">
           <Results questions={questions} handleReset={this.reset} />
         </div>
       );
@@ -108,7 +108,7 @@ class Card extends React.Component {
 
     // Intro, Loading, Error and Card components
     return (
-      <div className="card border text-center center-flex">
+      <>
         {intro ? (
           <Intro handleClick={() => this.setState({ intro: false })} questionsLength={questions && questions.length}/>
         ) : loading ? (
@@ -122,7 +122,7 @@ class Card extends React.Component {
             checkAnswer={this.checkAnswer}
           />
         )}
-      </div>
+      </>
     );
   }
 }

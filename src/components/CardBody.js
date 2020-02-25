@@ -8,23 +8,24 @@ import {
 
 function CardBody({ questions, index, checkAnswer }) {
   return (
-    <>
+    <div className="card questions-rows border text-center center-flex">
       <header className="card-header">
         <h2>{questions && questions[index].category}</h2>
-
-        {questions[index].result === "correct" && (
-          <FiThumbsUp size={40} color="limegreen" />
-        )}
-        {questions[index].result === "incorrect" && (
-          <FiThumbsDown size={40} color="crimson" />
-        )}
       </header>
+      <div className="card-outcome">
+          {questions[index].result === "correct" && (
+            <FiThumbsUp size={40} color="limegreen" />
+          )}
+          {questions[index].result === "incorrect" && (
+            <FiThumbsDown size={40} color="crimson" />
+          )}
+        </div>
       <main className="card-main">
         {questions && (
           <p className="text-center">{questions[index].question}</p>
         )}
-
-        <nav className="card-nav">
+      </main>
+      <nav className="card-nav">
           <button
             className={`btn-nav ${questions[index].result && "disabled"}`}
             disabled={questions[index].result}
@@ -40,11 +41,10 @@ function CardBody({ questions, index, checkAnswer }) {
             <FiXCircle size={60} />
           </button>
         </nav>
-      </main>
       <footer className="card-footer">
         {index + 1} of {questions && questions.length}
       </footer>
-    </>
+    </div>
   );
 }
 
