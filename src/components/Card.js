@@ -5,7 +5,7 @@ import CardBody from "./CardBody";
 import Results from "./Results";
 import Intro from "./Intro";
 import { fetchQuestions } from "../utils/api";
-import "../Card.css";
+import "./Card.css";
 
 class Card extends React.Component {
   state = {
