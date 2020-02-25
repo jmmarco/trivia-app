@@ -1,0 +1,195 @@
+.border {
+  border: 4px solid white;
+  border-radius: 2px;
+}
+
+.small-text {
+  font-size: xx-small;
+}
+
+.card {
+  margin: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30vw;
+  height: 80vh;
+  padding: 2rem;
+}
+
+.card-header {
+  text-align: center;
+  align-items: center;
+  height: 30vh;
+}
+
+.card-header > h2 {
+  justify-self: flex-start;
+  margin: 0 0 2rem 0;
+}
+
+.card-main {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column ;
+  padding: 1rem;
+  height: 40vh;
+}
+
+.card-nav {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap; 
+}
+
+.card-nav div {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 0.50rem;
+}
+
+.card-footer {
+  font-size: 2rem;
+  letter-spacing: 0.10rem;
+  margin: 2rem 0;
+}
+
+.results-questions {
+  width: 90%;
+  height: 30vh;
+  overflow: auto;
+  margin: 1rem 0 2rem 0;
+}
+
+.results-question {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.hide-some-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Show and hide questions inside results */
+.hide-some-text::before {
+  content: " + ";
+}
+
+.show-some-text::before {
+  content: " - ";
+}
+
+.review-heading {
+  margin: 0;
+}
+
+
+.center-flex {
+  justify-content: center;
+}
+
+.text-center {
+  text-align: center  ;
+}
+
+.correct {
+  color: lime;
+}
+
+.incorrect {
+  color: crimson;
+}
+
+.btn-nav {
+  all: unset;
+  margin: 0 10px;
+  color: white;
+  cursor: pointer;
+}
+
+.btn-nav:active {
+  color: #afb0b3;
+}
+
+.disabled {
+  opacity: 0.10;
+}
+
+.btn-standard {
+  letter-spacing: 0.02rem;
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  font-weight: 600;
+  height: 8vh;
+  color: white;
+  background-color: #282c34;
+  border: 2px solid white;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 0.50rem;
+}
+
+.btn-standard:active {
+  background-color: white;
+  color: #282c34;
+}
+
+.btn-standard:focus {
+  outline: none;
+}
+
+
+/*  Spinner courtesy of https://tobiasahlin.com/spinkit/ */
+.spinner {
+  width: 40px;
+  height: 40px;
+  margin: 100px auto;
+  background-color: white;
+  border-radius: 100%;  
+  -webkit-animation: sk-scaleout 1.0s infinite ease-in-out;
+  animation: sk-scaleout 1.0s infinite ease-in-out;
+}
+
+@-webkit-keyframes sk-scaleout {
+  0% { -webkit-transform: scale(0) }
+  100% {
+    -webkit-transform: scale(1.0);
+    opacity: 0;
+  }
+}
+
+@keyframes sk-scaleout {
+  0% { 
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  } 100% {
+    -webkit-transform: scale(1.0);
+    transform: scale(1.0);
+    opacity: 0;
+  }
+}
+
+
+@media (max-width: 550px) {
+  .card {
+    width: 95vw;
+    padding: 0.75rem;
+    height: 100%;
+  }
+  .card-main {
+    height: 50vh;
+    justify-content: space-around;
+    text-align: center;
+  }
+
+  .card-main > p {
+    margin: 0;
+  }
+
+  .btn-answer {
+    width: 24vw;
+  }
+}
