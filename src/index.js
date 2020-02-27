@@ -4,12 +4,20 @@ import "./index.css";
 import Card from "./components/Card";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
-import reducer from "./reducers";
+import { questionsReducer } from "./reducers/questions";
 import middleware from "./middleware";
 
-const store = createStore(reducer, middleware);
+// Specify the initial state
+export const initialAppState = { questions: null, index: 0, intro: true, loading: true, error: null, completed: false }
 
-// console.log(store.getState());  
+// Create the Redux store
+const store = createStore(
+  questionsReducer,
+  initialAppState,
+  middleware
+);
+
+// console.log(store.getState());
 
 ReactDOM.render(
   <Provider store={store}>
