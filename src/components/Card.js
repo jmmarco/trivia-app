@@ -1,141 +1,105 @@
 import React from "react";
 import Loading from "./Loading";
-import Error from "./Error";
-import CardBody from "./CardBody";
 import Results from "./Results";
+import CardBody from "./CardBody";
 import Intro from "./Intro";
-import NoMatch from './NoMatch'
-import { fetchQuestions } from "../utils/api";
-import { BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+import Error from "./Error";
+import { handleInitialData } from "../actions/shared";
+import {
+  updateQuestion,
+  nextQuestion,
+  finishQuestions,
+  startQuestions,
+  isLoading,
+  reset
+} from "../actions/questions";
+import { connect } from "react-redux";
 import "./Card.css";
 
 class Card extends React.Component {
-  state = {
-    completed: false,
-    error: null,
-    index: 0,
-    intro: true,
-    questions: null,
-    loading: true
-  };
-
-  setQuestions = () => {
-    fetchQuestions()
-      .then(questions => {
-        this.setState({
-          questions,
-          loading: false
-        });
-      })
-      .catch(error => {
-        this.setState({ loading: false, error: error.message });
-      });
-  };
-
-  reset = () => {
-    this.setState(
-      {
-        questions: null,
-        index: 0,
-        loading: true,
-        error: null,
-        completed: false
-      },
-      () => {
-        this.setQuestions();
-      }
-    );
-  };
-
   componentDidMount() {
-    this.setQuestions();
+    this.props.dispatch(handleInitialData());
   }
 
-  next = () => {
-    const { index, questions } = this.state;
-    index < questions.length - 1 &&
-      this.setState(state => {
-        return { index: state.index + 1 };
-      });
-  };
-
   checkAnswer = answer => {
-    const { index, questions } = this.state;
+    const { index, questions, dispatch } = this.props;
     let correctAnswer = questions[index].correct_answer === "True";
     questions[index]["result"] =
       correctAnswer === answer ? "correct" : "incorrect";
 
     const isDone = index === questions.length - 1;
 
-    /* 
-      Call setTimeout right after initial setState to show 
-      current and last question outcome.
-    */
-    isDone
-      ? this.setState(
-          {
-            questions
-          },
-          () => {
-            setTimeout(() => {
-              this.setState({
-                completed: isDone
-              });
-            }, 500);
-          }
-        )
-      : this.setState(
-          {
-            questions
-          },
-          () => {
-            setTimeout(() => {
-              this.next();
-            }, 500);
-          }
-        );
+    if (isDone) {
+      dispatch(updateQuestion(questions[index]));
+      setTimeout(() => {
+        dispatch(finishQuestions());
+      }, 1000);
+    } else {
+      dispatch(updateQuestion(questions[index]));
+      setTimeout(() => {
+        dispatch(nextQuestion(index));
+      }, 1000);
+    }
   };
 
   render() {
-    const { index, intro, questions, loading, error, completed } = this.state;
+    const {
+      questions,
+      loading,
+      completed,
+      intro,
+      error,
+      dispatch
+    } = this.props;
 
-    // Show game results
-    if (completed) {
+    if (intro) {
       return (
-        <div className="card results-rows border center-flex text-center">
-          <Results questions={questions} handleReset={this.reset} />
-        </div>
+        <Intro
+          questionsLength={questions && questions.length}
+          handleClick={() => dispatch(startQuestions())}
+        />
       );
     }
 
-    // Intro, Loading, Error and Card components
-    return (
-      <Router >
-        <Switch>
-          <Route path="/"  exact>
-          {intro ? (
-            <Intro
-              handleClick={() => this.setState({ intro: false })}
-              questionsLength={questions && questions.length}
-            />
-          ) : loading ? (
-            <Loading />
-          ) : error ? (
-            <Error message={error} />
-          ) : (
-            <CardBody
-              questions={questions}
-              index={index}
-              checkAnswer={this.checkAnswer}
-            />
-          )}
-        </Route>
-        <Route component={NoMatch} />
-        </Switch>
+    if (error) {
+      return <Error message={error.message} />;
+    }
 
-      </Router> 
-    );
+    if (completed) {
+      return (
+        <Results
+          questions={questions}
+          handleReset={() => {
+            dispatch(reset());
+            dispatch(isLoading(true))
+            setTimeout(() => {
+              dispatch(handleInitialData());
+            }, 2000)
+
+          }}
+        />
+      );
+    }
+
+    if (loading) {
+      return <Loading />;
+    }
+
+    if (questions) {
+      return <CardBody {...this.props} checkAnswer={this.checkAnswer} />;
+    }
   }
 }
 
-export default Card;
+function mapStateToProps({questions, loading, error, index, intro, completed }) {
+  return {
+    questions,
+    loading,
+    error,
+    index,
+    intro,
+    completed
+  };
+}
+
+export default connect(mapStateToProps)(Card);
