@@ -1,17 +1,17 @@
 import { fetchQuestions } from '../utils/api'
-import { getQuestions, loadQuestions, loadError } from './questions'
+import { getQuestions, isLoading, loadError } from './questions'
 
 
 export function handleInitialData() {
   return (dispatch) => {
     return fetchQuestions()
       .then(questions => {
-        dispatch(loadQuestions(true))
+        dispatch(isLoading(true))
         dispatch(getQuestions(questions))
-        dispatch(loadQuestions(false))
+        dispatch(isLoading(false))
       })
       .catch(error => {
-        dispatch(loadQuestions(false))
+        dispatch(isLoading(false))
         dispatch(loadError(error))
       })
   }
