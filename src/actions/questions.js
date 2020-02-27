@@ -1,8 +1,11 @@
 export const GET_QUESTIONS = 'GET_QUESTIONS';
-export const LOAD_QUESTIONS = 'LOAD_QUESTIONS';
+export const LOADING = 'LOADING';
 export const ERROR = 'ERROR';
 export const NEXT_QUESTION = 'NEXT_QUESTION';
-export const ANSWER_QUESTION = 'ANSWER_QUESTION';
+export const UPDATE_QUESTION = 'UPDATE_QUESTION';
+export const FINISH = 'FINISH';
+export const START = 'START';
+export const RESET = 'RESET';
 
 export function getQuestions(questions) {
   return {
@@ -11,10 +14,10 @@ export function getQuestions(questions) {
   }
 }
 
-export function loadQuestions(boolean) {
+export function isLoading(boolean) {
   return {
-    type: LOAD_QUESTIONS,
-    isLoading: boolean
+    type: LOADING,
+    loading: boolean
   }
 }
 
@@ -25,11 +28,10 @@ export function loadError(error) {
   }
 }
 
-
-export function answerQuestion(boolean) {
+export function updateQuestion(question) {
   return {
-    type: ANSWER_QUESTION,
-    answer: boolean
+    type: UPDATE_QUESTION,
+    question
   }
 }
 
@@ -37,6 +39,24 @@ export function nextQuestion(index) {
   return  {
     type: NEXT_QUESTION,
     index
+  }
+}
+
+export function finishQuestions() {
+  return {
+    type: FINISH,
+  }
+}
+
+export function startQuestions() {
+  return {
+    type: START,
+  }
+}
+
+export function reset() {
+  return {
+    type: RESET
   }
 }
 
