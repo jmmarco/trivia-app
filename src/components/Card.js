@@ -13,6 +13,7 @@ import {
   reset
 } from "../actions/questions";
 import { connect } from "react-redux";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./Card.css";
 
 class Card extends React.Component {
@@ -52,42 +53,38 @@ class Card extends React.Component {
       index
     } = this.props;
 
-    if (loading) {
-      return <Loading />;
-    }
-
-    if (error) {
-      return <Error errObj={error} />;
-    }
-
-    if (completed) {
-      return (
-        <Results
-          questions={questions}
-          handleReset={() => {
-            dispatch(reset());
-            dispatch(handleInitialData(startQuestions()));
-          }}
-        />
-      );
-    }
-
-    if (intro) {
-      return (
-        <Intro
-          handleClick={() => dispatch(startQuestions())}
-          questionsLength={questions && questions.length}
-        />
-      );
-    } else {
-      return (
-        <CardBody
-          questions={questions}
-          index={index}
-          checkAnswer={this.checkAnswer}
-        />
-      );
-    }
+    return (
+      <Router>
+        <Switch>
+          <Route path="/" exact>
+            {loading ? (
+              <Loading />
+            ) : error ? (
+              <Error errObj={error} />
+            ) : completed ? (
+              <Results
+                questions={questions}
+                handleReset={() => {
+                  dispatch(reset());
+                  dispatch(handleInitialData(startQuestions()));
+                }}
+              />
+            ) : intro ? (
+              <Intro
+                handleClick={() => dispatch(startQuestions())}
+                questionsLength={questions && questions.length}
+              />
+            ) : (
+              <CardBody
+                questions={questions}
+                index={index}
+                checkAnswer={this.checkAnswer}
+              />
+            )}
+          </Route>
+        </Switch>
+      </Router>
+    );
   }
 }
 
