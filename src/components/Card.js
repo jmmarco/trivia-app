@@ -4,9 +4,9 @@ import Error from "./Error";
 import CardBody from "./CardBody";
 import Results from "./Results";
 import Intro from "./Intro";
-import NoMatch from './NoMatch'
+import NoMatch from "./NoMatch";
 import { fetchQuestions } from "../utils/api";
-import { BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./Card.css";
 
 class Card extends React.Component {
@@ -28,7 +28,7 @@ class Card extends React.Component {
         });
       })
       .catch(error => {
-        this.setState({ loading: false, error: error.message });
+        this.setState({ loading: false, error: error });
       });
   };
 
@@ -99,41 +99,33 @@ class Card extends React.Component {
   render() {
     const { index, intro, questions, loading, error, completed } = this.state;
 
-    // Show game results
-    if (completed) {
-      return (
-        <div className="card results-rows border center-flex text-center">
-          <Results questions={questions} handleReset={this.reset} />
-        </div>
-      );
-    }
-
     // Intro, Loading, Error and Card components
     return (
-      <Router >
+      <Router>
         <Switch>
-          <Route path="/"  exact>
-          {intro ? (
-            <Intro
-              handleClick={() => this.setState({ intro: false })}
-              questionsLength={questions && questions.length}
-            />
-          ) : loading ? (
-            <Loading />
-          ) : error ? (
-            <Error message={error} />
-          ) : (
-            <CardBody
-              questions={questions}
-              index={index}
-              checkAnswer={this.checkAnswer}
-            />
-          )}
-        </Route>
-        <Route component={NoMatch} />
+          <Route path="/" exact>
+            {loading ? (
+              <Loading />
+            ) : error ? (
+              <Error errObj={error} />
+            ) : completed ? (
+              <Results questions={questions} handleReset={this.reset} />
+            ) : intro ? (
+              <Intro
+                handleClick={() => this.setState({ intro: false })}
+                questionsLength={questions && questions.length}
+              />
+            ) : (
+              <CardBody
+                questions={questions}
+                index={index}
+                checkAnswer={this.checkAnswer}
+              />
+            )}
+          </Route>
+          <Route component={NoMatch} />
         </Switch>
-
-      </Router> 
+      </Router>
     );
   }
 }
