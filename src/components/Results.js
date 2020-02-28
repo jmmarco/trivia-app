@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from 'prop-types';
 
 function Results({ questions, handleReset }) {
+
+  // Calculate the score from each question
   const score = questions.reduce((acc, q) => {
     if (q.result === "correct") {
       acc += 1;
@@ -9,6 +11,7 @@ function Results({ questions, handleReset }) {
     return acc;
   }, 0);
 
+  // Show review questions using CSS
   const handleClick = event => {
     event.target.classList.toggle("hide-some-text");
     event.target.classList.toggle("show-some-text");
@@ -16,7 +19,7 @@ function Results({ questions, handleReset }) {
 
   const scorePercentage = (score / questions.length) * 100;
   return (
-    <>
+    <div className="card results-rows border center-flex text-center">
       <h3 className="results-heading">
         You answered {score} of {questions.length} questions!
       </h3>
@@ -52,7 +55,7 @@ function Results({ questions, handleReset }) {
       <button className="btn-standard" onClick={handleReset}>
         Play Again!
       </button>
-    </>
+    </div>
   );
 }
 
