@@ -10,7 +10,6 @@ import {
   nextQuestion,
   finishQuestions,
   startQuestions,
-  isLoading,
   reset
 } from "../actions/questions";
 import { connect } from "react-redux";
@@ -49,20 +48,16 @@ class Card extends React.Component {
       completed,
       intro,
       error,
-      dispatch
+      dispatch,
+      index
     } = this.props;
 
-    if (intro) {
-      return (
-        <Intro
-          questionsLength={questions && questions.length}
-          handleClick={() => dispatch(startQuestions())}
-        />
-      );
+    if (loading) {
+      return <Loading />;
     }
 
     if (error) {
-      return <Error message={error.message} />;
+      return <Error errObj={error} />;
     }
 
     if (completed) {
@@ -71,27 +66,39 @@ class Card extends React.Component {
           questions={questions}
           handleReset={() => {
             dispatch(reset());
-            dispatch(isLoading(true))
-            setTimeout(() => {
-              dispatch(handleInitialData());
-            }, 2000)
-
+            dispatch(handleInitialData(startQuestions()));
           }}
         />
       );
     }
 
-    if (loading) {
-      return <Loading />;
-    }
-
-    if (questions) {
-      return <CardBody {...this.props} checkAnswer={this.checkAnswer} />;
+    if (intro) {
+      return (
+        <Intro
+          handleClick={() => dispatch(startQuestions())}
+          questionsLength={questions && questions.length}
+        />
+      );
+    } else {
+      return (
+        <CardBody
+          questions={questions}
+          index={index}
+          checkAnswer={this.checkAnswer}
+        />
+      );
     }
   }
 }
 
-function mapStateToProps({questions, loading, error, index, intro, completed }) {
+function mapStateToProps({
+  questions,
+  loading,
+  error,
+  index,
+  intro,
+  completed
+}) {
   return {
     questions,
     loading,
