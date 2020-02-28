@@ -11,6 +11,10 @@ Project bootstrapped with [Create React App](https://github.com/facebook/create-
 - [Redux Thunk](https://github.com/reduxjs/redux-thunk)
 
 
-
 ## Additional Credits
 Thanks to [Tobias Ahlin](https://github.com/tobiasahlin) for the spinner.
+
+## Quickstart
+- [Clone the project](https://github.com/jmmarco/trivia-app.git)
+- Run `npm install` or `yarn install`
+- To launch development server run `npm start` or `yarn start`
