@@ -1,11 +1,11 @@
 import React from "react";
 import PropTypes from 'prop-types';
 
-function Error({ message }) {
+function Error({ errObj }) {
   return (
     <div className="card border center-flex text-center">
       <p>
-        Something went wrong: {message}.<br />
+        Something went wrong: {errObj.message}.<br />
         Please try again later.
       </p>
     </div>
