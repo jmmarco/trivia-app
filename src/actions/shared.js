@@ -11,7 +11,6 @@ export function handleInitialData() {
         dispatch(isLoading(false))
       })
       .catch(error => {
-        console.log('error is', error)
         dispatch(loadError(error))
         dispatch(isLoading(false))
       })
