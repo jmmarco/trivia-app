@@ -1,3 +1,4 @@
+// Middleware for extra debugging info
 const logger = (store) => (next) => (action) =>   {
   console.group(action.type)
   console.log('The action is: ', action)
