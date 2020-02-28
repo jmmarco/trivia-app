@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 function Results({ questions, handleReset }) {
   const score = questions.reduce((acc, q) => {
@@ -16,7 +16,7 @@ function Results({ questions, handleReset }) {
 
   const scorePercentage = (score / questions.length) * 100;
   return (
-    <>
+    <div className="card results-rows border center-flex text-center">
       <h3 className="results-heading">
         You answered {score} of {questions.length} questions!
       </h3>
@@ -52,7 +52,7 @@ function Results({ questions, handleReset }) {
       <button className="btn-standard" onClick={handleReset}>
         Play Again!
       </button>
-    </>
+    </div>
   );
 }
 
@@ -60,5 +60,5 @@ export default Results;
 
 Results.propTypes = {
   handleReset: PropTypes.func.isRequired,
-  questions: PropTypes.array.isRequired,
+  questions: PropTypes.array.isRequired
 };
