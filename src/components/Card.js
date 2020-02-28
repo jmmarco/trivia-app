@@ -4,6 +4,7 @@ import Results from "./Results";
 import CardBody from "./CardBody";
 import Intro from "./Intro";
 import Error from "./Error";
+import NoMatch from './NoMatch'
 import { handleInitialData } from "../actions/shared";
 import {
   updateQuestion,
@@ -82,6 +83,7 @@ class Card extends React.Component {
               />
             )}
           </Route>
+          <Route component={NoMatch} />
         </Switch>
       </Router>
     );
