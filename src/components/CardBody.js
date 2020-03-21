@@ -9,11 +9,11 @@ import PropTypes from "prop-types";
 
 function CardBody({ questions, index, checkAnswer }) {
   return (
-    <div className="card questions-rows border text-center center-flex">
-      <header className="card-header">
-        <h2>{questions && questions[index].category}</h2>
+    <div className="card grid-rows-questions-rows">
+      <header>
+        <h2 className="font-bold tracking-wide text-4xl uppercase">{questions && questions[index].category}</h2>
       </header>
-      <div className="card-outcome">
+      <div className="flex-center-all">
         {questions[index].result === "correct" && (
           <FiThumbsUp size={40} color="limegreen" />
         )}
@@ -21,28 +21,28 @@ function CardBody({ questions, index, checkAnswer }) {
           <FiThumbsDown size={40} color="crimson" />
         )}
       </div>
-      <main className="card-main">
+      <main className="overflow-auto border-4 p-2 rounded-lg border-gray-400 shadow flex-center-all">
         {questions && (
-          <p className="text-center">{questions[index].question}</p>
+          <p className="text-2xl">{questions[index].question}</p>
         )}
       </main>
-      <nav className="card-nav">
+      <nav className="flex self-center justify-around ">
         <button
-          className={`btn-nav ${questions[index].result && "disabled"}`}
+          className={`btn-nav ${questions[index].result && "disabled"} hover:text-gray-400 focus:outline-none focus:shadow-outline rounded-full`}
           disabled={questions[index].result}
           onClick={() => checkAnswer(true)}
         >
           <FiCheckCircle size={60} />
         </button>
         <button
-          className={`btn-nav ${questions[index].result && "disabled"}`}
+          className={`btn-nav ${questions[index].result && "disabled"} hover:text-gray-400 focus:outline-none focus:shadow-outline rounded-full`}
           disabled={questions[index].result}
           onClick={() => checkAnswer(false)}
         >
           <FiXCircle size={60} />
         </button>
       </nav>
-      <footer className="card-footer">
+      <footer className="self-center text-5xl font-semibold">
         {index + 1} of {questions && questions.length}
       </footer>
     </div>
