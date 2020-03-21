@@ -28,14 +28,14 @@ function CardBody({ questions, index, checkAnswer }) {
       </main>
       <nav className="flex self-center justify-around ">
         <button
-          className={`btn-nav ${questions[index].result && "disabled"} hover:text-gray-400 focus:outline-none focus:shadow-outline rounded-full`}
+          className={`${questions[index].result && "opacity-50 cursor-not-allowed"} hover:text-gray-400 focus:outline-none focus:shadow-outline rounded-full`}
           disabled={questions[index].result}
           onClick={() => checkAnswer(true)}
         >
           <FiCheckCircle size={60} />
         </button>
         <button
-          className={`btn-nav ${questions[index].result && "disabled"} hover:text-gray-400 focus:outline-none focus:shadow-outline rounded-full`}
+          className={`${questions[index].result && "opacity-50 cursor-not-allowed"} hover:text-gray-400 focus:outline-none focus:shadow-outline rounded-full`}
           disabled={questions[index].result}
           onClick={() => checkAnswer(false)}
         >
