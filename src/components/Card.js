@@ -54,7 +54,7 @@ class Card extends React.Component {
     } = this.props;
 
     return (
-      <div className="container antialiased font-sans tracking-wider bg-white mx-auto max-w-md p-4 leading-tight text-gray-600">
+      <div className="container flex flex-col items-center justify-center antialiased font-sans tracking-wider bg-white max-w-md p-4 leading-tight text-gray-600">
         <Router>
           <Switch>
             <Route path="/" exact>

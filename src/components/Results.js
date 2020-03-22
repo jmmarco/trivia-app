@@ -47,9 +47,6 @@ function Results({ questions, handleReset }) {
           );
         })}
       </div>
-      <div>
-        {/* Intentionaly empty  */}
-      </div>
       <button className="btn btn-blue shadow-lg" onClick={handleReset}>
         Play Again!
       </button>
