@@ -15,10 +15,10 @@ function CardBody({ questions, index, checkAnswer }) {
       </header>
       <div className="flex-center-all">
         {questions[index].result === "correct" && (
-          <FiSmile size={40} color="limegreen" />
+          <FiSmile size={60} color="limegreen" />
         )}
         {questions[index].result === "incorrect" && (
-          <FiFrown size={40} color="crimson" />
+          <FiFrown size={60} color="crimson" />
         )}
       </div>
       <main className="overflow-auto border-4 p-2 rounded-lg border-gray-400 shadow flex-center-all">
