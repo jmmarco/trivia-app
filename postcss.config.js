@@ -4,9 +4,6 @@ const purgecss = require("@fullhuman/postcss-purgecss")({
     "./src/**/*.html",
     "./src/**/*.js"
   ],
-  corePlugins: {
-    float: false
-  },
 
   // Include any special characters you're using in this regular expression
   defaultExtractor: content => content.match(/[\w-/:]+(?<!:)/g) || []
