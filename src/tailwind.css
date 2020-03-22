@@ -23,7 +23,7 @@
 }
 
 .card {
-  @apply grid h-192 text-center border-solid border-4 shadow-xl rounded-lg p-8 border-gray-600 p-10;
+  @apply grid h-192 py-3 px-3 text-center border-solid border-4 shadow-xl rounded-lg border-gray-600;
 }
 
 .flex-center-all {
@@ -43,11 +43,11 @@
 }
 
 .correct {
-  @apply text-green-600
+  @apply text-green-600;
 }
 
 .incorrect {
-  @apply text-red-600
+  @apply text-red-600;
 }
 
 
