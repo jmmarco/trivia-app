@@ -2,12 +2,15 @@ module.exports = {
   theme: {
     extend: {
       height: {
-        "600": '600px',
+        "667": '667px',
+      },
+      minHeight: {
+        "90vh": '90vh',
       },
       gridTemplateRows: {
         "intro-rows": "1fr 1fr 1fr 60px",
-        "questions-rows": "1fr 3fr 40% 20% 15%",
-        "results": "3fr 1fr 2fr 300px 30px 60px"
+        "questions-rows": "1fr 15% 200px 20% 15%",
+        "results": "100px 1fr 40px 350px 30px 60px"
       }
     }
   },

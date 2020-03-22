@@ -9,7 +9,7 @@ import PropTypes from "prop-types";
 
 function CardBody({ questions, index, checkAnswer }) {
   return (
-    <div className="card grid-rows-questions-rows">
+    <div className="card h-667 md:h-auto md:min-h-90vh bg-blue-100 grid-rows-questions-rows h">
       <header>
         <h2 className="font-bold tracking-wide text-3xl md:text-4xl uppercase">{questions && questions[index].category}</h2>
       </header>
@@ -21,21 +21,21 @@ function CardBody({ questions, index, checkAnswer }) {
           <FiFrown size={60} color="crimson" />
         )}
       </div>
-      <main className="overflow-auto border-4 p-3 rounded-lg border-gray-400 shadow">
+      <main className="overflow-auto border-4 p-3 rounded-lg border-gray-300 bg-white shadow-md">
         {questions && (
           <p className="text-2xl text-left">{questions[index].question}</p>
         )}
       </main>
-      <nav className="flex self-center justify-around ">
+      <nav className="flex self-center justify-around">
         <button
-          className={`${questions[index].result && "opacity-50 cursor-not-allowed"} hover:text-gray-400 focus:outline-none focus:shadow-outline rounded-full`}
+          className={`${questions[index].result && "opacity-50 cursor-not-allowed"}  focus:outline-none focus:shadow-outline rounded-full`}
           disabled={questions[index].result}
           onClick={() => checkAnswer(true)}
         >
           <FiCheckCircle size={60} />
         </button>
         <button
-          className={`${questions[index].result && "opacity-50 cursor-not-allowed"} hover:text-gray-400 focus:outline-none focus:shadow-outline rounded-full`}
+          className={`${questions[index].result && "opacity-50 cursor-not-allowed"} focus:outline-none focus:shadow-outline rounded-full`}
           disabled={questions[index].result}
           onClick={() => checkAnswer(false)}
         >

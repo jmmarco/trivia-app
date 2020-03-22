@@ -18,8 +18,8 @@ function Results({ questions, handleReset }) {
 
   const scorePercentage = (score / questions.length) * 100;
   return (
-    <div className="card grid-rows-results text-2xl gap-4">
-      <h3 className="text-4xl">
+    <div className="card grid-rows-results text-2xl gap-4 h-667 md:h-auto md:min-h-90vh bg-blue-100">
+      <h3 className="text-4xl font-bold">
         You answered {score} of {questions.length} questions!
       </h3>
       {score / questions.length <= 0.5 && (
@@ -34,7 +34,7 @@ function Results({ questions, handleReset }) {
         <p className="self-center">That's {scorePercentage}%. Excellent!</p>
       )}
       <h4 className="text-3xl self-center">Review</h4>
-      <div className="overflow-auto">
+      <div className="overflow-auto border-4 p-3 rounded-lg border-gray-300 bg-white shadow-md">
         {questions.map(q => {
           return (
             <p
@@ -50,7 +50,7 @@ function Results({ questions, handleReset }) {
       <div>
         {/* Intentionaly empty  */}
       </div>
-      <button className="btn btn-indigo shadow-lg" onClick={handleReset}>
+      <button className="btn btn-blue shadow-lg" onClick={handleReset}>
         Play Again!
       </button>
     </div>
