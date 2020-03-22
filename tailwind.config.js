@@ -1,8 +1,8 @@
 module.exports = {
   theme: {
     extend: {
-      spacing: {
-        "192": "48rem"
+      height: {
+        "600": '600px',
       },
       gridTemplateRows: {
         "intro-rows": "1fr 1fr 1fr 60px",

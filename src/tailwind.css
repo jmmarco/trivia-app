@@ -23,7 +23,7 @@
 }
 
 .card {
-  @apply grid h-192 py-3 px-3 text-center border-solid border-4 shadow-xl rounded-lg border-gray-600;
+  @apply grid h-600 py-3 px-3 text-center border-solid border-4 shadow-xl rounded-lg border-gray-600;
 }
 
 .flex-center-all {
