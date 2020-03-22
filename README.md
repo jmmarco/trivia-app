@@ -9,7 +9,7 @@ Project bootstrapped with [Create React App](https://github.com/facebook/create-
 - [Redux](https://redux.js.org/)
 - [React Redux](https://react-redux.js.org/)
 - [Redux Thunk](https://github.com/reduxjs/redux-thunk)
-
+- [Tailwind CSS](https://github.com/tailwindcss/tailwindcss)
 
 ## Additional Credits
 Thanks to [Tobias Ahlin](https://github.com/tobiasahlin) for the spinner.
