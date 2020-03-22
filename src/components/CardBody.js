@@ -2,8 +2,8 @@ import React from "react";
 import {
   FiXCircle,
   FiCheckCircle,
-  FiThumbsUp,
-  FiThumbsDown
+  FiSmile,
+  FiFrown
 } from "react-icons/fi";
 import PropTypes from "prop-types";
 
@@ -15,10 +15,10 @@ function CardBody({ questions, index, checkAnswer }) {
       </header>
       <div className="flex-center-all">
         {questions[index].result === "correct" && (
-          <FiThumbsUp size={40} color="limegreen" />
+          <FiSmile size={40} color="limegreen" />
         )}
         {questions[index].result === "incorrect" && (
-          <FiThumbsDown size={40} color="crimson" />
+          <FiFrown size={40} color="crimson" />
         )}
       </div>
       <main className="overflow-auto border-4 p-2 rounded-lg border-gray-400 shadow flex-center-all">
