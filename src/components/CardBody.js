@@ -11,7 +11,7 @@ function CardBody({ questions, index, checkAnswer }) {
   return (
     <div className="card grid-rows-questions-rows">
       <header>
-        <h2 className="font-bold tracking-wide text-4xl uppercase">{questions && questions[index].category}</h2>
+        <h2 className="font-bold tracking-wide text-3xl md:text-4xl uppercase">{questions && questions[index].category}</h2>
       </header>
       <div className="flex-center-all">
         {questions[index].result === "correct" && (
@@ -21,9 +21,9 @@ function CardBody({ questions, index, checkAnswer }) {
           <FiFrown size={60} color="crimson" />
         )}
       </div>
-      <main className="overflow-auto border-4 p-2 rounded-lg border-gray-400 shadow flex-center-all">
+      <main className="overflow-auto border-4 p-3 rounded-lg border-gray-400 shadow">
         {questions && (
-          <p className="text-2xl">{questions[index].question}</p>
+          <p className="text-2xl text-left">{questions[index].question}</p>
         )}
       </main>
       <nav className="flex self-center justify-around ">
