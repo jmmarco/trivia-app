@@ -11,6 +11,9 @@ module.exports = {
       }
     }
   },
+  corePlugins: {
+    float: false
+  },
   variants: {
     backgroundColor: ["responsive", "hover", "focus", "active"]
   }

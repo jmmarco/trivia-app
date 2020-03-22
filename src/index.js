@@ -5,7 +5,7 @@ import { createStore } from "redux";
 import { Provider } from "react-redux";
 import { questionsReducer } from "./reducers/questions";
 import middleware from "./middleware";
-import './assets/main.css'
+import './index.css'
 
 
 // Specify the initial state
