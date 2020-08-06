@@ -25,8 +25,9 @@
     "build": "npm run build:css && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "build:css": "postcss tailwind.css -o src/index.css",
+    "build:css": "NODE_ENV=production postcss tailwind.css -o src/index.css",
     "watch:css": "postcss tailwind.css -o src/index.css"
+    
   },
   "eslintConfig": {
     "extends": "react-app"
