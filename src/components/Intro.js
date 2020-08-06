@@ -3,13 +3,13 @@ import PropTypes from "prop-types";
 
 function Intro({ handleClick, questionsLength }) {
   return (
-    <div className="card border intro-rows text-center">
-      <h1>Welcome to the Trivia Challenge!</h1>
+    <div className="card grid-rows-intro-rows text-3xl gap-2 h-667 md:h-auto md:min-h-90vh bg-blue-100">
+      <h1 className="font-bold text-4xl">Welcome to the Trivia Challenge!</h1>
       <p>
         You will be presented with {questionsLength} True or False questions.
       </p>
-      <p>Can you score 100%?</p>
-      <button className="btn-standard" onClick={handleClick}>
+      <p className="self-center">Can you score 100%?</p>
+      <button className="btn btn-blue shadow-lg" onClick={handleClick}>
         begin
       </button>
     </div>
