@@ -6,7 +6,7 @@ export function fetchQuestions() {
     .then(results => results.json())
     .then(data => {
       if (!data.results)
-        throw new Error("Unable to reach API, pleas try again later.")
+        throw new Error("Unable to reach API, please try again later.")
       // Iterate over each question and remove encoded characters
       const results = [
         ...data.results.map(q => {
