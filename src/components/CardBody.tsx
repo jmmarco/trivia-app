@@ -7,8 +7,17 @@ import {
 } from "react-icons/fi";
 import PropTypes from 'prop-types';
 
+import { QuestionProps } from './Card'
 
-function CardBody({ questions, index, checkAnswer }) {
+
+interface CardBodyProps {
+  questions: QuestionProps[];
+  index: number;
+  checkAnswer: (answer: boolean) => void;
+}
+
+
+function CardBody({ questions, index, checkAnswer }:CardBodyProps) {
   return (
     <div className="card questions-rows border text-center center-flex">
       <header className="card-header">
@@ -30,14 +39,14 @@ function CardBody({ questions, index, checkAnswer }) {
       <nav className="card-nav">
           <button
             className={`btn-nav ${questions[index].result && "disabled"}`}
-            disabled={questions[index].result}
+            disabled={questions[index].result === 'correct' ? true : false}
             onClick={() => checkAnswer(true)}
           >
             <FiCheckCircle size={60} />
           </button>
           <button
             className={`btn-nav ${questions[index].result && "disabled"}`}
-            disabled={questions[index].result}
+            disabled={questions[index].result === 'correct' ? true : false}
             onClick={() => checkAnswer(false)}
           >
             <FiXCircle size={60} />

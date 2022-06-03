@@ -1,11 +1,14 @@
 import React from "react";
-import PropTypes from 'prop-types';
 
-function Error({ errObj }) {
+interface ErrorProps {
+  message:string
+}
+
+function Error({ message }: ErrorProps) {
   return (
     <div className="card border center-flex text-center">
       <p>
-        Something went wrong: {errObj.message}.<br />
+        Something went wrong: {message}.<br />
         Please try again later.
       </p>
     </div>
@@ -13,7 +16,3 @@ function Error({ errObj }) {
 }
 
 export default Error;
-
-Error.propTypes = {
-  message: PropTypes.string.isRequired,
-};

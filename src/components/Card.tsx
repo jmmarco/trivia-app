@@ -9,13 +9,31 @@ import { fetchQuestions } from "../utils/api";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./Card.css";
 
-class Card extends React.Component {
-  state = {
+
+interface CardState  {
+  completed: boolean;
+  error: string | null;
+  index: number;
+  intro: boolean;
+  questions: QuestionProps[];
+  loading: boolean;
+}
+
+export interface QuestionProps {
+  correct_answer: string;
+  result: string;
+  category: string;
+  index: number;
+  question: string;
+}
+
+class Card extends React.Component<{}, CardState> {
+  state: CardState = {
     completed: false,
     error: null,
     index: 0,
     intro: true,
-    questions: null,
+    questions: [],
     loading: true
   };
 
@@ -28,14 +46,14 @@ class Card extends React.Component {
         });
       })
       .catch(error => {
-        this.setState({ loading: false, error: error });
+        this.setState({ loading: false, error });
       });
   };
 
   reset = () => {
     this.setState(
       {
-        questions: null,
+        questions: [],
         index: 0,
         loading: true,
         error: null,
@@ -51,19 +69,19 @@ class Card extends React.Component {
     this.setQuestions();
   }
 
-  next = () => {
+  next = (): void => {
     const { index, questions } = this.state;
-    index < questions.length - 1 &&
+    index < questions?.length - 1 &&
       this.setState(state => {
         return { index: state.index + 1 };
       });
   };
 
-  checkAnswer = answer => {
+  checkAnswer = (answer: boolean) => {
     const { index, questions } = this.state;
-    let correctAnswer = questions[index].correct_answer === "True";
-    questions[index]["result"] =
-      correctAnswer === answer ? "correct" : "incorrect";
+    let correctAnswer:boolean = questions[index].correct_answer === "True";
+
+    questions[index]["result"]  = correctAnswer === answer ? "correct" : "incorrect";
 
     const isDone = index === questions.length - 1;
 
@@ -107,7 +125,7 @@ class Card extends React.Component {
             {loading ? (
               <Loading />
             ) : error ? (
-              <Error errObj={error} />
+              <Error message={error} />
             ) : completed ? (
               <Results questions={questions} handleReset={this.reset} />
             ) : intro ? (

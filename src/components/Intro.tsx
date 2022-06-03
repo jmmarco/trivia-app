@@ -1,7 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-function Intro({ handleClick, questionsLength }) {
+interface IntroProps {
+  handleClick: () => void;
+  questionsLength: number;
+}
+
+function Intro({ handleClick, questionsLength }: IntroProps) {
   return (
     <div className="card border intro-rows text-center">
       <h1>Welcome to the Trivia Challenge!</h1>

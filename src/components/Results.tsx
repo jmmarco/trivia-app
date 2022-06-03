@@ -1,17 +1,26 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-function Results({ questions, handleReset }) {
-  const score = questions.reduce((acc, q) => {
+import { QuestionProps } from "./Card";
+
+interface ResultProps {
+  questions: QuestionProps[];
+  handleReset: () => void;
+}
+
+function Results({ questions, handleReset }: ResultProps) {
+  const score = questions.reduce((acc: number, q: QuestionProps) => {
     if (q.result === "correct") {
       acc += 1;
     }
     return acc;
   }, 0);
 
-  const handleClick = event => {
-    event.target.classList.toggle("hide-some-text");
-    event.target.classList.toggle("show-some-text");
+  const handleClick = (event: React.MouseEvent) => {
+    const target = event.target as HTMLButtonElement;
+
+    target.classList.toggle("hide-some-text");
+    target.classList.toggle("show-some-text");
   };
 
   const scorePercentage = (score / questions.length) * 100;
@@ -37,7 +46,7 @@ function Results({ questions, handleReset }) {
       )}
       <h4 className="results-heading">Review</h4>
       <div className="results-questions">
-        {questions.map(q => {
+        {questions.map((q) => {
           return (
             <p
               key={q.question}
@@ -60,5 +69,5 @@ export default Results;
 
 Results.propTypes = {
   handleReset: PropTypes.func.isRequired,
-  questions: PropTypes.array.isRequired
+  questions: PropTypes.array.isRequired,
 };
